@@ -2,7 +2,9 @@ import sys
 import datetime
 import requests
 
-def check arguments(argv):
+def check_arguments(argv):
+	date1 = date2 = None
+	today = datetime.datetime.now().date()
 	if len(argv)==1:
 		date1 = datetime.date(year=datetime.datetime.now().date().year, month=datetime.datetime.now().date().month, day=1)
 		date2 = today
@@ -32,12 +34,9 @@ def get_currency(date):
 	return float(requests.get('http://www.infovalutar.ro/bnr/%d/%d/%d/EUR' % (date.year, date.month, date.day)).text)
 
 
-def get_currency():
+def compute_currency():
 	# compute the medium value of each day's currency between the specified dates
-	date1 = date2 = None
-	today = datetime.datetime.now().date()
-
-	date1, date2 = check arguments(sys.argv)
+	date1, date2 = check_arguments(sys.argv)
 
 	if not date1 or not date2:
 		return
@@ -71,4 +70,4 @@ def get_currency():
 
 
 if __name__ == "__main__":
-	get_currency()
+	compute_currency()
